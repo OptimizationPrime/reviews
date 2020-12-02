@@ -20,3 +20,28 @@
 - Node 14.15.0
 
 
+REVIEWS
+Read:
+Method: GET
+Endpoint:
+Request:
+Response:
+
+Create
+Method: POST
+Endpoint:
+Request:
+Response: HTTP Status Code 201
+
+Update:
+Method: PUT
+Endpoint:
+Request:
+Response: HTTP Status Code 200
+
+Delete:
+Method: DELETE
+Endpoint:
+Request:
+Response: HTTP Status Code 200
+
