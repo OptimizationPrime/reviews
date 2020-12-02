@@ -23,14 +23,10 @@
 ## REVIEWS CRUD
 
 ### Read reviews
-
-**Endpoint:** `/:id/neighborhood_reviews`
-
-**Method:** GET
-
-**Request:** `{id: number, category: string}`
-
-**Response:** JSON
+* **Endpoint:** `/:id/neighborhood_reviews`
+* **Method:** GET
+* **Request:** `{id: number, category: string}`
+* **Response:** JSON
 ```
 {
   'username': result[i].name,
