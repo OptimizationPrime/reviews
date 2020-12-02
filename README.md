@@ -48,42 +48,29 @@
 ```
 
 ### Create review
-**Endpoint:** `/:id/neighborhood_reviews/`
-
-**Method:** POST
-
-**Request:**
-
-**Response:** HTTP Status Code `201`
+* **Endpoint:** `/:id/neighborhood_reviews/`
+* **Method:** POST
+* **Request:**
+* **Response:** HTTP Status Code `201`
 
 ### Update review
-
-**Endpoint:** `/:id/neighborhood_reviews`
-
-**Method:** PATCH
-
-**Request:**
-
-**Response:**: HTTP Status Code `200`
+* **Endpoint:** `/:id/neighborhood_reviews`
+* **Method:** PATCH
+* **Request:**
+* **Response:**: HTTP Status Code `200`
 
 ### Delete review
-**Endpoint:** `/:id/neighborhood_reviews`
-
-**Method:** DELETE
-
-**Request:**
-
-**Response:**: HTTP Status Code `200`
+* **Endpoint:** `/:id/neighborhood_reviews`
+* **Method:** DELETE
+* **Request:**
+* **Response:**: HTTP Status Code `200`
 
 
 ### Read stats
-**Endpoint:** `/:id/neighborhood_stats`
-
-**Method:** GET
-
-**Request:** `{id: number}`
-
-**Response:**: JSON
+* **Endpoint:** `/:id/neighborhood_stats`
+* **Method:** GET
+* **Request:** `{id: number}`
+* **Response:**: JSON
 ```
 {
   'dog_friendly': result[i].dog_friendly,
