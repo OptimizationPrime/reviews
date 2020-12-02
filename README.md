@@ -22,11 +22,14 @@
 
 ## REVIEWS CRUD
 
-# Read reviews
+### Read reviews
 
 **Endpoint:** `/:id/neighborhood_reviews`
+
 **Method:** GET
+
 **Request:** `{id: number, category: string}`
+
 **Response:** JSON
 ```
 {
@@ -44,31 +47,44 @@
 }
 ```
 
-# Create review
+### Create review
 **Endpoint:** `/:id/neighborhood_reviews/`
+
 **Method:** POST
+
 **Request:**
+
 **Response:** HTTP Status Code `201`
 
-# Update review
+### Update review
+
 **Endpoint:** `/:id/neighborhood_reviews`
+
 **Method:** PATCH
+
 **Request:**
+
 **Response:**: HTTP Status Code `200`
 
-# Delete review
+### Delete review
 **Endpoint:** `/:id/neighborhood_reviews`
+
 **Method:** DELETE
+
 **Request:**
+
 **Response:**: HTTP Status Code `200`
 
 
-# Read stats
+### Read stats
 **Endpoint:** `/:id/neighborhood_stats`
+
 **Method:** GET
+
 **Request:** `{id: number}`
+
 **Response:**: JSON
-```json
+```
 {
   'dog_friendly': result[i].dog_friendly,
   'grocery_stores': result[i].grocery_stores,
