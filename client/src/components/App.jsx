@@ -36,6 +36,7 @@ class App extends React.Component {
     axios({
       method: 'get',
       url: `${window.location}neighborhood_reviews`,
+      // url entered in the browser
     })
       .then((result) => {
         console.log('Get request reviews success');
