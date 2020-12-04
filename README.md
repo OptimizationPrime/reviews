@@ -1,7 +1,7 @@
 ## REVIEWS CRUD
 
 ### Read reviews
-* **Endpoint:** `listings/:id/reviews`,`or`, `listings/:id/neighborhoods/:id/reviews`
+* **Endpoint:** `listings/:id/reviews`,`or`, `neighborhoods/:id/reviews`
 * **Method:** GET
 * **Request:** `{id: number, category: string}`
 * **Response:** JSON
@@ -26,7 +26,7 @@
 ```
 
 ### Create review
-* **Endpoint:** `neighborhood/:id/reviews`
+* **Endpoint:** `neighborhoods/:id/reviews`
 * **Method:** POST
 * **Request:**
     {
@@ -45,7 +45,7 @@
 * **Response:** HTTP Status Code `201`
 
 ### Update review
-* **Endpoint:** `neighborhood/:id/reviews/:id`
+* **Endpoint:** `neighborhoods/:id/reviews/:id`
 * **Method:** PATCH
 * **Request:**
     {
@@ -65,7 +65,7 @@
 * **Response:**: HTTP Status Code `200`
 
 ### Delete review
-* **Endpoint:** `neighborhood/:id/reviews/:id`
+* **Endpoint:** `neighborhoods/:id/reviews/:id`
 * **Method:** DELETE
 * **Request:** `{reviews_id: "Number"}`
 * **Response:**: HTTP Status Code `200`
