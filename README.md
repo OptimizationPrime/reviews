@@ -3,7 +3,7 @@
 ### Read reviews
 * **Endpoint:** `listings/:listingId/reviews`,`or`, `neighborhoods/:neighborhoodId/reviews`
 * **Method:** GET
-* **Request:** `{listingId: "Number", category: "String"}`
+* **Request:** `{listingId: "Number"}`
 * **Response:** JSON
 ```
 {
@@ -70,6 +70,28 @@
 ```
 * **Response:**: HTTP Status Code `200`
 
+### Update whole review
+* **Endpoint:** `neighborhoods/:neighborhoodId/reviews/:reviewId`
+* **Method:** PUT
+* **Request:**
+```
+    {
+      "review_id: "Number",
+      "username": "String",
+      "user_type": "String",
+      "review_date": "String",
+      "full_text": "String",
+      "likes": "Number",
+      "category": {
+        "parent": "Boolean",
+        "commute": "Boolean",
+        "dog_owner": "Boolean",
+        "community": "Boolean"
+      }
+    }
+```
+* **Response:**: HTTP Status Code `200`
+
 ### Delete review
 * **Endpoint:** `neighborhoods/:neighborhoodId/reviews/:reviewId`
 * **Method:** DELETE
@@ -102,6 +124,7 @@
   wildlife: "Number"
 }
 ```
+
 ### Read everything for a listing (neighborhood)
 * **Endpoint:** `neighborhoods/:neighborhoodId/stats`
 * **Method:** GET
