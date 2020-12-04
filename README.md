@@ -30,6 +30,7 @@
 * **Endpoint:** `neighborhoods/:neighborhoodId/reviews`
 * **Method:** POST
 * **Request:**
+```
     {
       "id ?"
       "username": "String",
@@ -44,12 +45,14 @@
         "community": "Boolean"
       }
     }
+  ```
 * **Response:** HTTP Status Code `201`
 
 ### Update review
 * **Endpoint:** `neighborhoods/:neighborhoodId/reviews/:reviewId`
 * **Method:** PATCH
 * **Request:**
+```
     {
       "review_id: "Number",
       "username": "String",
@@ -64,6 +67,7 @@
         "community": "Boolean"
       }
     }
+```
 * **Response:**: HTTP Status Code `200`
 
 ### Delete review
