@@ -28,7 +28,6 @@ var schema = {
   message: "The document does not contain apropriate properties"
 };
 
-
 // nums: { type: "array", items: { type: "number", maximum: 6 } } },
 // {
 //   "type": "object",
