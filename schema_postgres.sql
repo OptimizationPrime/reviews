@@ -1,7 +1,4 @@
-DROP DATABASE IF EXISTS neighborhoodReviews;
-CREATE DATABASE neighborhoodReviews;
-
-USE neighborhoodReviews;
+CREATE SCHEMA IF NOT EXISTS neighborhoodReviews
 
 CREATE TABLE neighborhoods (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -27,17 +24,17 @@ CREATE TABLE neighborhoods (
 CREATE TABLE listings (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   neighborhood_id INT NOT NULL,
+
   FOREIGN KEY (neighborhood_id)
     REFERENCES neighborhoods(id)
 );
 
-
 CREATE TABLE users (
-  id INT PRIMARY KEY,
-  name text,
-  user_type text,
-  dog_owner boolean,
-  parent boolean
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(30) NOT NULL,
+  user_type VARCHAR(30) NOT NULL,
+  dog_owner BOOLEAN NOT NULL,
+  parent BOOLEAN NOT NULL
 );
 
 CREATE TABLE reviews (

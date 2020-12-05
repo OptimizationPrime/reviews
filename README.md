@@ -32,7 +32,6 @@
 * **Request:**
 ```
     {
-      "id ?"
       "username": "String",
       "user_type": "String",
       "review_date": "String",
