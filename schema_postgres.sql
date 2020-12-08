@@ -1,7 +1,10 @@
-CREATE SCHEMA IF NOT EXISTS neighborhoodReviews
+DROP DATABASE IF EXISTS reviews
+CREATE DATABASE reviews
+
+CREATE SCHEMA neighborhood_reviews
 
 CREATE TABLE neighborhoods (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id INT NOT NULL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   dog_friendly DECIMAL(3, 2) NOT NULL,
   grocery_stores DECIMAL(3, 2) NOT NULL,
@@ -22,7 +25,7 @@ CREATE TABLE neighborhoods (
 );
 
 CREATE TABLE listings (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id INT NOT NULL PRIMARY KEY,
   neighborhood_id INT NOT NULL,
 
   FOREIGN KEY (neighborhood_id)
@@ -30,7 +33,7 @@ CREATE TABLE listings (
 );
 
 CREATE TABLE users (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id INT NOT NULL PRIMARY KEY,
   name VARCHAR(30) NOT NULL,
   user_type VARCHAR(30) NOT NULL,
   dog_owner BOOLEAN NOT NULL,
@@ -38,11 +41,11 @@ CREATE TABLE users (
 );
 
 CREATE TABLE reviews (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id INT NOT NULL PRIMARY KEY,
   userid INT NOT NULL,
   neighborhood_id INT NOT NULL,
   review_date VARCHAR(255) NOT NULL,
-  full_text LONGTEXT NOT NULL,
+  full_text TEXT NOT NULL,
   likes INT NOT NULL,
   community BOOLEAN NOT NULL,
   commute BOOLEAN NOT NULL,
@@ -53,3 +56,4 @@ CREATE TABLE reviews (
   FOREIGN KEY (userid)
     REFERENCES users(id)
 );
+

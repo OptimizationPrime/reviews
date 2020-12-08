@@ -24,7 +24,6 @@
   }
 }
 
-
 // review - EDGE - b/w from neighborhood to user
 {
   "review": {
