@@ -1,20 +1,16 @@
 const fs = require('fs')
 const faker = require('faker')
 const LorenIpsum = require('lorem-ipsum').LoremIpsum;
-// const argv = require('yargs').argv
 
-// argv.lines ||
-// argv.output ||
-// const lines = 4000000 // for reviews_1.csv (0-3999999)
+// const lines = 8000000// for reviews_1.csv (0-3999999)
 // const lines = 8000000 // for reviews_2.csv (4M - 7999999)
-// const lines = 10000002 // for reviews_3.csv (8M - 10000001)
-// const filename = 'csv_files/reviews_1.csv'
-// const filename = 'csv_files/reviews_2.csv'
-// const filename = 'csv_files/reviews_3.csv'
-const stream = fs.createWriteStream(filename)
+const lines = 10000002 // for reviews_3.csv (8M - 10000001)
 
-// logs the time it takes to run your code in the console
-console.time("Time this")
+// const filename = 'csv_files/ardb_reviews_1.csv'
+// const filename = 'csv_files/ardb_reviews_2.csv'
+const filename = 'csv_files/ardb_reviews_3.csv'
+
+const stream = fs.createWriteStream(filename)
 
 // HELPERS /////////////////////////////////////////////////////////////////
 const randomDate = function () {
@@ -60,18 +56,18 @@ const startWriting = (writeStream, encoding, done) => {
       i--
       let review = generateReview(i)
       // if (i === 0) { // for reviews_1.csv (0-3999999)
-      // if (i === 4000000) { // // for reviews_2.csv (4M - 7999999)
-      if (i === 8000000) {
+      // if (i === 4000000) { // for reviews_2.csv (4M - 7999999)
+      if (i === 8000000) { // for reviews_3.csv (8M - 10000001)
         writeStream.write(review, encoding, done)
       } else {
         canWrite = writeStream.write(review, encoding)
       }
     // } while (i > 0 && canWrite) // for reviews_1.csv (0-3999999)
     // } while (i > 4000000 && canWrite) // for reviews_2.csv (4M - 7999999)
-    } while (i > 8000000 && canWrite)
+    } while (i > 8000000 && canWrite) // for reviews_3.csv (8M - 10000001)
     // if(i > 0 && !canWrite){ // for reviews_1.csv (0-3999999)
     // if(i > 4000000 && !canWrite){ // for reviews_2.csv (4M - 7999999)
-    if(i > 8000000 && !canWrite){
+    if(i > 8000000 && !canWrite){ // for reviews_3.csv (8M - 10000001)
       writeStream.once('drain', writing);
     }
   }
@@ -84,15 +80,19 @@ startWriting(stream, 'utf-8', () => {
   stream.end()
 })
 
-console.timeEnd("Time this")
-
 // Remove constraints when seeding, stuff like PRIMARY KEY, data types?
 // Then do ALTER TABLES to add them afterwards
 
 // explain analyze on psql gives you planning and execution times for a query
 // eg -> explain analyze select * from table_name where id=1;
 
-// COPY reviews(id, userid, neighborhood_id, review_date, full_text, likes, community, commute)
-// FROM '/home/octavio/neighborhood-reviews/csv_files/reviews_1.csv'
-// DELIMITER ','
-// CSV HEADER;
+// arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/reviews_3.csv" --type csv --create-collection true --collection "reviews" --server.database _system
+// —server.username "root"
+// arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/reviews_2.csv" --type csv --collection "reviews" --server.database _system
+// —server.username "root"
+// arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/reviews_1.csv" --type csv --collection "reviews" --server.database _system
+// —server.username "root"
+
+// /home/octavio/neighborhood-reviews/csv_files/
+// for edges add: --create-collection-type edge, ie arangoimp --file <path/filename> --collection <collectionName> --create-collection true --type csv --create-collection-type edge --server.database <databaseName>
+// translating column names: arangoimport --file "data.csv" --type csv --translate "from=_from" --translate "to=_to"
