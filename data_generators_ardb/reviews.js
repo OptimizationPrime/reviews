@@ -86,11 +86,11 @@ startWriting(stream, 'utf-8', () => {
 // explain analyze on psql gives you planning and execution times for a query
 // eg -> explain analyze select * from table_name where id=1;
 
-// arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/reviews_3.csv" --type csv --create-collection true --collection "reviews" --server.database _system
+// arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/reviews_3.csv" --type csv --create-collection true --collection "reviews" --translate 'id=_key' --server.database _system
 // —server.username "root"
-// arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/reviews_2.csv" --type csv --collection "reviews" --server.database _system
+// arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/reviews_2.csv" --type csv --collection "reviews" --translate 'id=_key' --server.database _system
 // —server.username "root"
-// arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/reviews_1.csv" --type csv --collection "reviews" --server.database _system
+// arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/reviews_1.csv" --type csv --collection "reviews" --translate 'id=_key' --server.database _system
 // —server.username "root"
 
 // /home/octavio/neighborhood-reviews/csv_files/

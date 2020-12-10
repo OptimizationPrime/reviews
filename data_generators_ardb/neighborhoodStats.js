@@ -67,5 +67,5 @@ startWriting(stream, 'utf-8', () => {
 
 
 
-// arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/neighborhoodStats.csv" --type csv --create-collection true --collection "neighborhood_stats" --server.database _system
+// arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/neighborhoodStats.csv" --type csv --create-collection true --collection "neighborhood_stats" --translate 'id=_key' --server.database _system
 // —server.username "root"

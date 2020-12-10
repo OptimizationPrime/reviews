@@ -40,5 +40,7 @@ startWriting(stream, 'utf-8', () => {
   stream.end()
 })
 
-// arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/listings.csv" --type csv --create-collection true --collection "listings" --server.database _system
+// arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/listings.csv" --type csv --create-collection-type edge --create-collection true --collection "listings" --translate 'id=_key'  --server.database _system
 // —server.username "root"
+
+// --translate "id=_from" --translate "neighborhood_id=_to"
