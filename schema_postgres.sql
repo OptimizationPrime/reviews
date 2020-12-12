@@ -42,7 +42,7 @@ CREATE TABLE users (
 
 CREATE TABLE reviews (
   id INT NOT NULL PRIMARY KEY,
-  userid INT NOT NULL,
+  user_id INT NOT NULL,
   neighborhood_id INT NOT NULL,
   review_date VARCHAR(255) NOT NULL,
   full_text TEXT NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE reviews (
   FOREIGN KEY (neighborhood_id)
     REFERENCES neighborhoods(id),
 
-  FOREIGN KEY (userid)
+  FOREIGN KEY (user_id)
     REFERENCES users(id)
 );
 

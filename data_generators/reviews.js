@@ -1,16 +1,17 @@
 const fs = require('fs')
 const faker = require('faker')
 const LorenIpsum = require('lorem-ipsum').LoremIpsum;
-// const argv = require('yargs').argv
 
-// argv.lines ||
-// argv.output ||
-// const lines = 4000000 // for reviews_1.csv (0-3999999)
-// const lines = 8000000 // for reviews_2.csv (4M - 7999999)
-// const lines = 10000002 // for reviews_3.csv (8M - 10000001)
-// const filename = 'csv_files/reviews_1.csv'
-// const filename = 'csv_files/reviews_2.csv'
-// const filename = 'csv_files/reviews_3.csv'
+// const lines = 5000000 // for reviews_1.csv (0-4999999)
+// const lines = 10000000 // for reviews_2.csv (5M - 9999999)
+// const lines = 15000000 // for reviews_3.csv (10M - 14999999)
+const lines = 20000002 // for reviews_3.csv (15M - 20000001)
+
+// const filename = 'csv_files/reviews/reviews_1.csv'
+// const filename = 'csv_files/reviews/reviews_2.csv'
+// const filename = 'csv_files/reviews/reviews_3.csv'
+const filename = 'csv_files/reviews/reviews_4.csv'
+
 const stream = fs.createWriteStream(filename)
 
 // logs the time it takes to run your code in the console
@@ -40,15 +41,17 @@ const generateReview = (index) => {
 
   const id = index
   // user id is a random # from 0 - 99
-  const userid = Math.floor(Math.random() * 100) // Foreign Key
-  const neighborhood_id = neighborhoodIds[index % neighborhoodIds.length] // Foreign Key
+  // const userid = Math.floor(Math.random() * 100) // Foreign Key
+  const user_id = Math.floor(Math.random() * 50000000) // Foreign Key
+  // const neighborhood_id = neighborhoodIds[index % neighborhoodIds.length] // Foreign Key
+  const neighborhood_id = Math.floor(Math.random() * 500000) // Foreign Key
   const review_date = randomDate()
   const full_text = textGenerator.generateParagraphs(1)
   const likes = Math.floor(Math.random() * (150 - 1 + 1)) + 1
   const community = Math.random() < 0.5
   const commute = Math.random() < 0.5
 
-  return `${id},${userid},${neighborhood_id},${review_date},${full_text},${likes},${community},${commute}\n`
+  return `${id},${user_id},${neighborhood_id},${review_date},${full_text},${likes},${community},${commute}\n`
 }
 
 // WRITER /////////////////////////////////////////////////////////////////
@@ -59,19 +62,25 @@ const startWriting = (writeStream, encoding, done) => {
     do {
       i--
       let review = generateReview(i)
-      // if (i === 0) { // for reviews_1.csv (0-3999999)
-      // if (i === 4000000) { // // for reviews_2.csv (4M - 7999999)
-      if (i === 8000000) {
+      // if (i === 0) { // for reviews_1.csv (0-4999999)
+      // if (i === 5000000) { // for reviews_2.csv (5M - 9999999)
+      // if (i === 10000000) { // for reviews_3.csv (10M - 14999999)
+      if (i === 15000000) { // for reviews_4.csv (15M - 20000001)
+
         writeStream.write(review, encoding, done)
       } else {
         canWrite = writeStream.write(review, encoding)
       }
-    // } while (i > 0 && canWrite) // for reviews_1.csv (0-3999999)
-    // } while (i > 4000000 && canWrite) // for reviews_2.csv (4M - 7999999)
-    } while (i > 8000000 && canWrite)
-    // if(i > 0 && !canWrite){ // for reviews_1.csv (0-3999999)
-    // if(i > 4000000 && !canWrite){ // for reviews_2.csv (4M - 7999999)
-    if(i > 8000000 && !canWrite){
+    // } while (i > 0 && canWrite) // for reviews_1.csv (0-4999999)
+    // } while (i > 5000000 && canWrite) // for reviews_2.csv (5M - 9999999)
+    // } while (i > 10000000 && canWrite) // for reviews_3.csv (10M - 14999999)
+    } while (i > 15000000 && canWrite) // for reviews_4.csv (15M - 20000001)
+
+    // if(i > 0 && !canWrite){ // for reviews_1.csv (0-4999999)
+    // if(i > 5000000 && !canWrite){ // for reviews_2.csv (5M - 9999999)
+    // if(i > 10000000 && !canWrite){ // for reviews_3.csv (10M - 14999999)
+    if(i > 15000000 && !canWrite){ // for reviews_4.csv (15M - 20000001)
+
       writeStream.once('drain', writing);
     }
   }
@@ -79,7 +88,7 @@ const startWriting = (writeStream, encoding, done) => {
 }
 
 // WRITE CALL //////////////////////////////////////////////////////////////
-stream.write(`id,userid,neighborhood_id,review_date,full_text,likes,community,commute\n`, 'utf-8')
+stream.write(`id,user_id,neighborhood_id,review_date,full_text,likes,community,commute\n`, 'utf-8')
 startWriting(stream, 'utf-8', () => {
   stream.end()
 })
@@ -92,7 +101,12 @@ console.timeEnd("Time this")
 // explain analyze on psql gives you planning and execution times for a query
 // eg -> explain analyze select * from table_name where id=1;
 
-// COPY reviews(id, userid, neighborhood_id, review_date, full_text, likes, community, commute)
-// FROM '/home/octavio/neighborhood-reviews/csv_files/reviews_1.csv'
+// COPY reviews(id, user_id, neighborhood_id, review_date, full_text, likes, community, commute)
+// FROM '/home/octavio/neighborhood-reviews/csv_files/reviews/reviews_2.csv'
 // DELIMITER ','
 // CSV HEADER;
+
+// 40M listings
+// 500K neighborhoods => average 80 listings per hood
+// 20M reviews => average 40 reviews per listing
+// 50M users

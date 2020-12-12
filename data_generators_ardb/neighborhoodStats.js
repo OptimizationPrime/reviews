@@ -67,5 +67,9 @@ startWriting(stream, 'utf-8', () => {
 
 
 
-// arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/neighborhoodStats.csv" --type csv --create-collection true --collection "neighborhood_stats" --translate 'id=_key' --server.database _system
-// —server.username "root"
+// arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/neighborhoodStats.csv" --type csv --overwrite true --create-collection true --collection "neighborhoods" --translate 'id=_key' --server.database _system --server.username "root"
+
+// 40M listings
+// 500K neighborhoods => average 80 listings per hood
+// 20M reviews => average 40 reviews per listing
+// 20M+ users

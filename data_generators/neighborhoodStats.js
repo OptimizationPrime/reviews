@@ -1,18 +1,18 @@
 const fs = require('fs')
 const faker = require('faker')
-const argv = require('yargs').argv
 
-const lines = argv.lines || 10
-const filename = argv.output || 'csv_files/neighborhoodStats.csv'
+const lines = 500000
+const filename = 'csv_files/neighborhoodStats.csv'
 // what is stream, what is filename?
 const stream = fs.createWriteStream(filename)
 
 // For large streams, such as millions of lines of generated data, we need to handle a case when our buffer is full and listen for the ‘drain’ event to be fired and then we can resume our writing
 
 const generateNeighborhoodStats = (index) => {
-  const neighborhoods = ['SoMA', 'Pacific Heights', 'Castro', 'Chinatown', 'Marina', 'Hayes Valley', 'Bayview', 'Mission', 'Outer Richmond', 'Noe Valley']
+  // const neighborhoods = ['SoMA', 'Pacific Heights', 'Castro', 'Chinatown', 'Marina', 'Hayes Valley', 'Bayview', 'Mission', 'Outer Richmond', 'Noe Valley']
+  // const name = neighborhoods[index % neighborhoods.length]
   const id = index
-  const name = neighborhoods[index % neighborhoods.length]
+  const name = faker.random.word()
   const dog_friendly = Math.random().toFixed(2);
   const grocery_stores = Math.random().toFixed(2)
   const neighbors_friendly = Math.random().toFixed(2)
@@ -71,3 +71,9 @@ startWriting(stream, 'utf-8', () => {
 // FROM '/home/octavio/neighborhood-reviews/csv_files/neighborhoodStats.csv'
 // DELIMITER ','
 // CSV HEADER;
+
+
+// 40M listings
+// 500K neighborhoods => average 80 listings per hood
+// 20M reviews => average 40 reviews per listing
+// 20M+ users

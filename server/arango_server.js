@@ -12,19 +12,19 @@ const publicDir = path.join(__dirname, '../client/public');
 app.use(bodyParser.json());
 app.use('/listings/:id', express.static(publicDir));
 
-app.get('/', function(req, res) {
-  db
-  .findAll()
-  .then(function(response) {
-    console.log(`Load all saved documents.`, response._result);
+// app.get('/', function(req, res) {
+//   db
+//   .findAll()
+//   .then(function(response) {
+//     console.log(`Load all saved documents.`, response._result);
 
-    return res.status(200).json(response._result);
-  })
-  .catch(function(error) {
-    console.error('Error getting documents', error);
-    return res.status(500).json(error);
-  });
-});
+//     return res.status(200).json(response._result);
+//   })
+//   .catch(function(error) {
+//     console.error('Error getting documents', error);
+//     return res.status(500).json(error);
+//   });
+// });
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}/listings/:id`);
