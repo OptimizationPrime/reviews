@@ -1,4 +1,6 @@
 client/public/bundle.js
+config/db.js
+newrelic.js
 ## MAC files ##
 .DS_Store
 
@@ -30,3 +32,4 @@ dist/
 
 
 *.csv
+*.sh

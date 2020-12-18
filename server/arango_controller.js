@@ -1,47 +1,122 @@
-const arangojs = require("arangojs")
-const dbConfig = require("../config/db.js")
+// const arangojs = require("arangojs")
+const {aql, Database} = require('arangojs');
+const dbConfig = require("../config/db.js");
 
-var DB = new arangojs.Database({
+// var DB = new arangojs.Database({
+var DB = new Database({
   url: dbConfig.url
 });
 DB.useDatabase(dbConfig.database);
 DB.useBasicAuth(dbConfig.username, dbConfig.password);
 
 // Collection to manage: Review
-var Review = DB.collection('users');
+var Listings = DB.collection('listings');
+var NeighList = DB.collection('neigh_list');
+var Neighborhoods = DB.collection('neighborhoods');
+var Reviews = DB.collection('reviews');
+var Users = DB.collection('users');
 
-// Find an article by its key
-exports.findByKey = function (key) {
+
+exports.findListingByKey = function (key) {
   if (!key) return;
-  // Returns some document of a collection that matches the specified example. If no such document exists, null will be returned. The example has to be specified as paths and values.
-  return Review.firstExample({_key: key});
+  return Listings.firstExample({_key: key});
 };
 
-// Save a new review with title and description as required fields
-exports.create = function (review) {
-  if (!review.title || !review.description) return;
-
-  return Review.save(review);
-};
-
-// Update an existing review, the incoming object should have the _key field
-exports.update = function (review) {
-  if (!review._key) return;
-
-  return Review.update(review._key, review);
-};
-
-// Remove an existing review by its _key
-exports.remove = function (key) {
+exports.findNeighborhoodByKey = function (key) {
   if (!key) return;
-
-  return Review.removeByKeys([key]);
+  return Neighborhoods.firstExample({_key: key});
 };
 
-// Find all articles saved so fare
-exports.findAll = function () {
-  return Review.all();
+exports.findListingEdgeByKey = function (key) {
+  if (!key) return;
+  const from = `listings/${key}`
+  return NeighList.firstExample({_from: from});
 };
+
+exports.findReviewsByTo = function (key) {
+  console.log('type of key: ', key);
+  if (!key) return;
+  // return Reviews.firstExample({_to: key})
+  var obj = {
+    _key: '17214940',
+    _id: 'reviews/17214940',
+    _from: 'users/26091610',
+    _to: 'neighborhoods/26244',
+    _rev: '_bjSdD-e---',
+    community: false,
+    commute: false,
+    full_text: 'Lorem veniam laborum Lorem et voluptate qui ad voluptate sint dolor quis est culpa commodo. Nostrud enim non labore.',
+    likes: 113,
+    review_date: '2/5/2017'
+  }
+  return obj
+  // var allRevs = [];
+  // Reviews.byExample({_to: key})
+  //   .then((reviews) => {
+  //     reviews.forEach((review => allRevs.push(review)))
+  //   })
+  //   .then(() => {return allRevs})
+
+
+};
+
+
+
+// Find neiguborhood stats for listing
+// const getNeighborhoodStats = function (id, callback) {
+//   DB.query(aql`
+//   for l in listings
+//     filter l._key == ${id}
+//       for n in neigh_list
+//         filter l._id == n._from
+//           for nh in neighborhoods
+//             filter nh._id == n._to
+//               return nh
+//   `)
+//   .then(cursor => cursor.all())
+//   .then(res => {
+//     // console.log('res: ', res );
+//     callback(null, res)})
+//   .catch(err => {
+//     // console.log('err: ', err );
+//     callback(err);
+//   })
+// };
+
+// module.exports.getNeighborhoodStats = getNeighborhoodStats;
+
+// // Find an article by its key
+// exports.findByKey = function (key) {
+//   if (!key) return;
+//   // Returns some document of a collection that matches the specified example. If no such document exists, null will be returned. The example has to be specified as paths and values.
+//   return Review.firstExample({_key: key});
+// };
+
+// // Save a new review with title and description as required fields
+// exports.create = function (review) {
+//   if (!review.title || !review.description) return;
+
+//   return Review.save(review);
+// };
+
+// // Update an existing review, the incoming object should have the _key field
+// exports.update = function (review) {
+//   if (!review._key) return;
+
+//   return Review.update(review._key, review);
+// };
+
+// // Remove an existing review by its _key
+// exports.remove = function (key) {
+//   if (!key) return;
+
+//   return Review.removeByKeys([key]);
+// };
+
+// // Find all articles saved so fare
+// exports.findAll = function () {
+//   return Review.all();
+// };
 
 
 

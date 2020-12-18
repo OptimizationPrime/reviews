@@ -12,7 +12,8 @@
     "start": "nodemon server/arango_server.js",
     "webpack:dev": "webpack --watch",
     "webpack:prod": "webpack",
-    "test": "jest"
+    "test": "jest",
+    "stress": "k6 run script.js"
   },
   "dependencies": {
     "arangojs": "^7.2.0",
@@ -26,6 +27,7 @@
     "jest-enzyme": "^7.1.2",
     "lorem-ipsum": "^2.0.3",
     "mysql": "^2.18.1",
+    "newrelic": "^7.0.2",
     "prop-types": "^15.7.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
