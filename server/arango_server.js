@@ -36,6 +36,21 @@ app.use('/listings/:id', express.static(publicDir));
 //   // });
 // });
 
+app.get('*/:id/listings', (req, res) => {
+  var key = req.params.id;
+  db
+  .findListingByKey(key)
+  .then(function(neighborhood) {
+    console.log('neighborhood stats: ', neighborhood)
+    res.status(200).json(neighborhood);
+    // res.send(neighborhood);
+    // res.end();
+  })
+  .catch(function(error) {
+    console.log('Error in neighborhood fetch', error);
+    res.status(500).json(error);
+  })
+})
 
 app.get('*/:id/neighborhood', (req, res) => {
   var key = req.params.id;
