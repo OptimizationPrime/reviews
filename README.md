@@ -95,7 +95,7 @@
 * **Endpoint:** `neighborhoods/:neighborhoodId/reviews/:reviewId`
 * **Method:** DELETE
 * **Request:** `{reviewId: "Number"}`
-* **Response:**: HTTP Status Code `200`
+* **Response:**: HTTP Status Code `204`
 
 ### Read stats
 * **Endpoint:** `neighborhoods/:neighborhoodId/stats`
