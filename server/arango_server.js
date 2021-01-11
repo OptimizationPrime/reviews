@@ -40,16 +40,16 @@ app.get('*/:id/listings', (req, res) => {
   var key = req.params.id;
   db
   .findListingByKey(key)
-  .then(function(neighborhood) {
-    console.log('neighborhood stats: ', neighborhood)
-    res.status(200).json(neighborhood);
-    // res.send(neighborhood);
-    // res.end();
-  })
-  .catch(function(error) {
-    console.log('Error in neighborhood fetch', error);
-    res.status(500).json(error);
-  })
+    .then(function(neighborhood) {
+      console.log('neighborhood stats: ', neighborhood)
+      res.status(200).json(neighborhood);
+      // res.send(neighborhood);
+      // res.end();
+    })
+    .catch(function(error) {
+      console.log('Error in neighborhood fetch', error);
+      res.status(500).json(error);
+    })
 })
 
 app.get('*/:id/neighborhood', (req, res) => {
@@ -57,30 +57,30 @@ app.get('*/:id/neighborhood', (req, res) => {
   // console.log('user:', req.params) // {id: 1}
   db
   .findListingByKey(key)
-  .then(function(listing) {
-    // console.log(`Get a document by key "${req.params.id}".`, doc._key);
-    // console.log(`listing.neighborhood_id: ${listing.neighborhood_id}`); // neighborhood_id is a number
-    console.log('listing: ', listing);
-    var neighborhood_key = listing.neighborhood_id.toString(); // need a string for the key query
-  // var neighborhood_key = req.params.id;
-  // console.log('typeof: ', typeof(listing.neighborhood_id));
-    db
-    .findNeighborhoodByKey(neighborhood_key)
-      .then(function(neighborhood) {
-        console.log('neighborhood stats: ', neighborhood)
-        res.status(200).json(neighborhood);
-        // res.send(neighborhood);
-        // res.end();
-      })
-      .catch(function(error) {
-        console.log('Error in neighborhood fetch', error);
-        res.status(500).json(error);
-      })
-  })
-  .catch(function(error) {
-    console.error('Error getting single document', error);
-    res.status(500).json(error);
-  });
+    .then(function(listing) {
+      // console.log(`Get a document by key "${req.params.id}".`, doc._key);
+      // console.log(`listing.neighborhood_id: ${listing.neighborhood_id}`); // neighborhood_id is a number
+      console.log('listing: ', listing);
+      var neighborhood_key = listing.neighborhood_id.toString(); // need a string for the key query
+    // var neighborhood_key = req.params.id;
+    // console.log('typeof: ', typeof(listing.neighborhood_id));
+      db
+      .findNeighborhoodByKey(neighborhood_key)
+        .then(function(neighborhood) {
+          console.log('neighborhood stats: ', neighborhood)
+          res.status(200).json(neighborhood);
+          // res.send(neighborhood);
+          // res.end();
+        })
+        .catch(function(error) {
+          console.log('Error in neighborhood fetch', error);
+          res.status(500).json(error);
+        })
+    })
+    .catch(function(error) {
+      console.error('Error getting single document', error);
+      res.status(500).json(error);
+    });
 });
 
 app.get('*/:id/reviews', (req, res) => {
@@ -101,12 +101,14 @@ app.get('*/:id/reviews', (req, res) => {
         })
         .catch(function(error) {
           console.error('Error getting single document 1', error);
-          res.status(500).json(error);
+          // res.status(500).json(error);
+          res.send(error);
         });
     })
     .catch(function(error) {
       console.error('Error getting single document 2', error);
-      res.status(500).json(error);
+      // res.status(500).json(error);
+      res.send(error);
     });
 })
 

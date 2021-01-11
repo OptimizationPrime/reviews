@@ -2,13 +2,17 @@ const fs = require('fs')
 const faker = require('faker')
 const LorenIpsum = require('lorem-ipsum').LoremIpsum;
 
-// const lines = 8000000// for reviews_1.csv (0-3999999)
+// const lines = 4000000// for reviews_1.csv (0-3999999)
 // const lines = 8000000 // for reviews_2.csv (4M - 7999999)
-const lines = 10000002 // for reviews_3.csv (8M - 10000001)
+// const lines = 10000002 // for reviews_3.csv (8M - 10000001)
+
+const lines = 50000 // for csv_files_ec2/reviews_1.csv (0 - 99999)
 
 // const filename = 'csv_files/ardb_reviews_1.csv'
 // const filename = 'csv_files/ardb_reviews_2.csv'
-const filename = 'csv_files/ardb_reviews_3.csv'
+// const filename = 'csv_files/ardb_reviews_3.csv'
+
+const filename = 'csv_files_ec2/reviews_1.csv'
 
 const stream = fs.createWriteStream(filename)
 
@@ -58,22 +62,22 @@ const startWriting = (writeStream, encoding, done) => {
     do {
       i--
       let review = generateReview(i)
-      // if (i === 0) {
+      if (i === 0) {
         // for reviews_1.csv (0-3999999)
       // if (i === 4000000) {
         // for reviews_2.csv (4M - 7999999)
-      if (i === 8000000) {
+      // if (i === 8000000) {
         // for reviews_3.csv (8M - 10000001)
         writeStream.write(review, encoding, done)
       } else {
         canWrite = writeStream.write(review, encoding)
       }
-    // } while (i > 0 && canWrite) // for reviews_1.csv (0-3999999)
+    } while (i > 0 && canWrite) // for reviews_1.csv (0-3999999)
     // } while (i > 4000000 && canWrite) // for reviews_2.csv (4M - 7999999)
-    } while (i > 8000000 && canWrite) // for reviews_3.csv (8M - 10000001)
-    // if(i > 0 && !canWrite){ // for reviews_1.csv (0-3999999)
+    // } while (i > 8000000 && canWrite) // for reviews_3.csv (8M - 10000001)
+    if(i > 0 && !canWrite){ // for reviews_1.csv (0-3999999)
     // if(i > 4000000 && !canWrite){ // for reviews_2.csv (4M - 7999999)
-    if(i > 8000000 && !canWrite){ // for reviews_3.csv (8M - 10000001)
+    // if(i > 8000000 && !canWrite){ // for reviews_3.csv (8M - 10000001)
       writeStream.once('drain', writing);
     }
   }
@@ -97,6 +101,12 @@ startWriting(stream, 'utf-8', () => {
 // arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/reviews_1.csv" --type csv --collection "reviews" --translate 'id=_key' --server.database _system
 // —server.username "root"
 
+// FOR EC2 from local
+// arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/reviews/reviews_1.csv" --type csv --create-collection true --server.endpoint tcp://34.221.100.86:8529 --collection "reviews" --translate 'id=_key' --server.database _system
+
+// FOR EC2 from EC2
+// arangoimport --file "reviews_1.csv" --type csv --create-collection true --collection "reviews" --translate 'id=_key' --server.database _system
+
 // EDGE
 // arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/reviews/reviews_1.csv" --type csv --create-collection-type edge --overwrite true  --collection "reviews" --from-collection-prefix users --to-collection-prefix neighborhoods --translate "user_id=_from" --translate "neighborhood_id=_to" --translate 'id=_key' --server.database _system --server.username "root"
 // --create-collection-type edge
@@ -110,3 +120,7 @@ startWriting(stream, 'utf-8', () => {
 // 20M+ users
 
 
+// 10M listings
+// 125K neighborhoods
+// 5M reviews
+//

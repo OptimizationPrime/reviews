@@ -66,8 +66,14 @@ startWriting(stream, 'utf-8', () => {
 })
 
 
-
+// For local db
 // arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/neighborhoodStats.csv" --type csv --overwrite true --create-collection true --collection "neighborhoods" --translate 'id=_key' --server.database _system --server.username "root"
+
+// For db instance from local
+// arangoimport --file "/home/octavio/neighborhood-reviews/csv_files/neighborhoodStats.csv" --type csv --overwrite true --create-collection true --collection "neighborhoods" --translate 'id=_key' --server.endpoint tcp://34.221.100.86:8529 --server.database _system --server.username "root"
+
+// For db instance from db instance
+// arangoimport --file "neighborhoodStats.csv" --type csv --overwrite true --create-collection true --collection "neighborhoods" --translate 'id=_key' --server.database _system --server.username "root"
 
 // 40M listings
 // 500K neighborhoods => average 80 listings per hood
