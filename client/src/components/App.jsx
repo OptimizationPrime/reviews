@@ -33,45 +33,54 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // axios({
+    //   method: 'get',
+    //   url: `${window.location}neighborhood_reviews`,
+    //   // window.location = current url in the browser
+    // })
+    //   .then((result) => {
+    //     console.log('Get request reviews success');
+    //     this.setState({
+    //       reviewsTotal: result.data.length,
+    //       selectedReviews: result.data,
+    //     });
+        // axios({
+        //   method: 'get',
+        //   url: `${window.location}neighborhood_stats`,
+        // })
     axios({
       method: 'get',
-      url: `${window.location}neighborhood_reviews`,
+      url: `${window.location}/neighborhood`,
+      // window.location = current url in the browser
+      // console.log('window location: ', window.location)
     })
-      .then((result) => {
-        console.log('Get request reviews success');
-        this.setState({
-          reviewsTotal: result.data.length,
-          selectedReviews: result.data,
-        });
-        axios({
-          method: 'get',
-          url: `${window.location}neighborhood_stats`,
-        })
-          .then((res) => {
-            console.log('Get request stats success');
-            this.setState({
-              neighborhoodName: res.data[0].name,
-              stats: res.data[0].stats,
-            });
-          });
+      .then((res) => {
+        console.log('Get request stats success');
+        console.log('client side respose: ', res)
+        // this.setState({
+        //   neighborhoodName: res.data[0].name,
+        //   stats: res.data[0].stats,
+        // });
       })
       .catch((err) => console.log(err));
+    // })
+      // .catch((err) => console.log(err));
   }
 
-  handleSelectedReviews(selectedCategory) {
-    axios({
-      method: 'get',
-      url: `${window.location}neighborhood_reviews`,
-      params: {
-        category: selectedCategory,
-      },
-    })
-      .then((result) => {
-        this.setState({
-          selectedReviews: result.data,
-        });
-      });
-  }
+  // handleSelectedReviews(selectedCategory) {
+  //   axios({
+  //     method: 'get',
+  //     url: `${window.location}neighborhood_reviews`,
+  //     params: {
+  //       category: selectedCategory,
+  //     },
+  //   })
+  //     .then((result) => {
+  //       this.setState({
+  //         selectedReviews: result.data,
+  //       });
+  //     });
+  // }
 
   handleReviewModal(review, color) {
     this.setState({
